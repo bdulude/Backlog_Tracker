@@ -31,9 +31,12 @@ class Movie:
     @classmethod
     def get_all(cls, data:dict):
         query = "SELECT * FROM movies WHERE user_id = %(user_id)s;"
-        result = connectToMySQL(DATABASE).query_db(query, data)
-        if result:
-            return cls(result[0])
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        movies = []
+        if results:
+            for movie in results:
+                movies.append(movie)
+            return movies
         return []
     
 

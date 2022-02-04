@@ -8,18 +8,41 @@
     <title>New Movie</title>
 </head>
 <body>
-    <form action="/create/movie" method="POST">
-        <input type="text" name="title" value="{{response.title}}">
-        <br>
-        <textarea name="synopsis" cols="30" rows="8">{{response.synopsis}}</textarea>
-        <br>
-        <input type="text" name="link" value="{{response.link}}">
-        <br>
-        <input type="text" name="rating" value="{{response.rating}}">
-        <br>
-        <input type="text" name="image" value="{{response.image}}">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container d-flex ps-3 pe-3" style="min-width: 60vw">
+        <div id="sidebar" class="d-flex flex-column text-center p-3 border-end border-4 sticky-top h-100" style="min-height: 100vh">
+            <h1 class="h2 m-3 font-weight-normal">Backlogged</h1>
+            <hr>
+            <div class="d-flex flex-column align-middle mb-auto">
+                <h2 class="h3 m-3 font-weight-normal">Movies</h2>
+                <h2 class="h3 m-3 font-weight-normal">TV Shows</h2>
+                <h2 class="h3 m-3 font-weight-normal">Books</h2>
+                <h2 class="h3 m-3 font-weight-normal">Video Games</h2>
+            </div>
+            <div class="d-flex flex-column text-center mb-3">
+                <hr>
+                <p>{{session['email']}}</p>
+                <a href="/logout" class="btn btn-outline-danger">Logout</a>
+            </div>
+        </div>
+        <div id="main" class="p-5">
+            <div id="main-top" class="d-flex justify-content-between" style="min-width: 40vw">
+                <h1 class="font-weight-normal">Add Movie</h1>
+            </div>
+            <form action="/create/movie" method="POST">
+                <input type="text" name="title" value="{{response.title}}">
+                <br>
+                <textarea name="synopsis" cols="30" rows="8">{{response.synopsis}}</textarea>
+                <br>
+                <input type="text" name="link" value="{{response.link}}">
+                <br>
+                <input type="text" name="rating" value="{{response.rating}}">
+                <br>
+                <input type="text" name="image" value="{{response.image}}">
+                <br>
+                <a href="/dashboard" class="btn btn-outline-warning">Cancel</a>
+                <button type="submit" class="btn btn-outline-success">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app.models import movie, user
-import requests, json
+import requests, json, html
 
 
 @app.route('/search/movie')
@@ -41,8 +41,11 @@ def getMovie():
 
     output = {
         'link' : response_Arr[1]['tt_url'],
-        'title' : response_Arr[1]['jsonnnob']['name'],
-        'synopsis' : response_Arr[1]['jsonnnob']['description'],
+        # 'title' : html.unescape(response_Arr[1]['jsonnnob']['name']),
+        'title' : html.unescape(response_Arr[1]['title']),
+        # 'synopsis' : html.unescape(response_Arr[1]['jsonnnob']['description']),
+        'synopsis' : html.unescape(response_Arr[1]['short_imdb_description']),
+        # 'synopsis' : html.unescape(response_Arr[1]['summary']['plot']),
         'rating' : response_Arr[1]['UserRating']['rating'],
         'image' : response_Arr[1]['small_poster']
     }

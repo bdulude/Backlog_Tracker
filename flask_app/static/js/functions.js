@@ -1,8 +1,8 @@
-function createMovieQuery() {
-    let query = document.getElementById("search").value
-    query = encodeURIComponent(query.trim())
-    return "q=" + query
-}
+// function createMovieQuery() {
+//     let query = document.getElementById("search").value
+//     query = encodeURIComponent(query.trim())
+//     return "q=" + query
+// }
 
 function searchMovie(){
     let query = document.getElementById("searchInput").value
