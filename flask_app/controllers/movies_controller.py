@@ -39,6 +39,9 @@ def getMovie():
     for item in json_load:
         response_Arr.append(item)
 
+    if len(response_Arr) == 2:
+        return redirect('/dashboard')
+
     output = {
         'link' : response_Arr[1]['tt_url'],
         # 'title' : html.unescape(response_Arr[1]['jsonnnob']['name']),

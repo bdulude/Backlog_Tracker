@@ -1,8 +1,3 @@
-// function createMovieQuery() {
-//     let query = document.getElementById("search").value
-//     query = encodeURIComponent(query.trim())
-//     return "q=" + query
-// }
 
 function searchMovie(){
     let query = document.getElementById("searchInput").value
@@ -11,9 +6,30 @@ function searchMovie(){
     document.getElementById("hidden").value = query
     document.getElementById("search").submit()
 }
+
+
+document.getElementById('searchInput').onkeydown = function(e){
+    if(e.keyCode == 13){
+        searchMovie()
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+// function createMovieQuery() {
+//     let query = document.getElementById("search").value
+//     query = encodeURIComponent(query.trim())
+//     return "q=" + query
+// }
 // createMovieQuery("Fellowship of the Ring")
-
-
 // function parseMovieResponse(resp) {
 //     let output = {}
 //     output['title'] = resp.title
@@ -23,7 +39,6 @@ function searchMovie(){
 //     console.log(output)
 //     return output
 // }
-
 // function getMovie() {
 //     var url = "http://betterimdbot.herokuapp.com"
 //     var xhr = new XMLHttpRequest()
@@ -42,12 +57,6 @@ function searchMovie(){
 //             parseMovieResponse(JSON.parse(xhr.responseText)[1])
 //     }}
 // }
-
-
-
-
-
-
 // // Example POST method implementation:
 // async function postData(url = "https://betterimdbot.herokuapp.com", data = { 'data': "q=Fellowship%20of%20the%20Ring"}) {
 //     // Default options are marked with *
