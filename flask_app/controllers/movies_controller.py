@@ -1,12 +1,54 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app.models import movie, user
+import requests, json
+
+
+@app.route('/search/movie')
+def searchMovie():
+    if 'uuid' not in session:
+        return redirect('/')
+    return render_template('search_movie.html')
+
 
 @app.route('/new/movie')
 def new():
     if 'uuid' not in session:
         return redirect('/')
     return render_template('new_movie.html')
+
+@app.route('/get/movie', methods=['POST'])
+def getMovie():
+    if 'uuid' not in session:
+        return redirect('/')
+
+    url = "https://betterimdbot.herokuapp.com/"
+    data = {
+        **request.form
+    }
+    payload = data['searchQuery']
+    headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    json_load = json.loads(response.text)
+    response_Arr = []
+
+    for item in json_load:
+        response_Arr.append(item)
+
+    output = {
+        'link' : response_Arr[1]['tt_url'],
+        'title' : response_Arr[1]['jsonnnob']['name'],
+        'synopsis' : response_Arr[1]['jsonnnob']['description'],
+        'rating' : response_Arr[1]['UserRating']['rating'],
+        'image' : response_Arr[1]['small_poster']
+    }
+
+    return render_template("new_movie.html", response = output)
+
 
 @app.route('/create/movie', methods=['POST'])
 def create():
@@ -17,8 +59,10 @@ def create():
         return redirect('/new/movie')
     data = {
         **request.form,
-        'userid' : session['uuid']
+        'user_id' : session['uuid']
     }
+    print("*************")
+    print(data)
     id = movie.Movie.save(data)
     return redirect('/dashboard')
 

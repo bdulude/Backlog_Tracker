@@ -4,15 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sasquatch Websighting</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Backlogged</title>
 </head>
 <body>
-    <div class="main">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 300px">
-            dashboard
-            <a href="/logout">Logout</a>
+    <div class="container d-flex p-3" style="min-width: 60vw">
+        <div id="sidebar" class="d-flex flex-column text-center p-3 border-end border-4" style="min-height: 97vh">
+            <h1 class="h2 m-3 font-weight-normal">Backlogged</h1>
+            <hr>
+            <div class="d-flex flex-column align-middle mb-auto">
+                <h2 class="h3 m-3 font-weight-normal">Movies</h2>
+                <h2 class="h3 m-3 font-weight-normal">TV Shows</h2>
+                <h2 class="h3 m-3 font-weight-normal">Books</h2>
+                <h2 class="h3 m-3 font-weight-normal">Video Games</h2>
+            </div>
+            <div class="d-flex flex-column text-center mb-3">
+                <hr>
+                <p>{{session['email']}}</p>
+                <a href="/logout" class="btn btn-outline-danger">Logout</a>
+            </div>
         </div>
+        <div id="main" class="p-5">
+            <div id="main-top" class="d-flex justify-content-between" style="min-width: 40vw">
+                <h1 class="font-weight-normal">Movies</h1>
+                <div id="buttons" class="d-flex align-items-center float-end">
+                    <a href="/search/movie" class="btn btn-outline-info me-3">New</a>
+                    <a href="/random" class="btn btn-outline-success">Random</a>
+                </div>
+            </div>
+            <div id="content">
+                {% for entry in data %}
+                    <div class="entry d-flex border w-100 mt-5 p-2" style="height: 150px">
+                        <img class="me-3 mt-auto mb-auto" src="{{entry.image}}" alt="" style="height:125px">
+                        <div id="entry-text">
+                            <h4>{{entry.title}}</h4>
+                            <p>{{entry.synopsis}}</p>
+                        </div>
+                        <p>{{entry.rating}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
+    {{data}}
     
 </body>
 </html>

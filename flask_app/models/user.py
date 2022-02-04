@@ -75,6 +75,7 @@ class User:
                 is_valid = False
             else:
                 session["uuid"] = user_inst.id
+                session['email'] = user_inst.email
         else:
             flash("Invalid Credentials", "err_login")
             is_valid = False

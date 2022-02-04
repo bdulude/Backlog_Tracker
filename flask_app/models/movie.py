@@ -9,6 +9,7 @@ class Movie:
         self.synopsis = data['synopsis']
         self.rating = data['rating']
         self.image = data['image']
+        self.link = data['link']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.used = data['used'] # set on creation like user_id
@@ -16,7 +17,7 @@ class Movie:
 
     @classmethod
     def save(cls, data:dict):
-        query = "INSERT INTO movies (title, synopsis, rating, used, image, created_at, updated_at, user_id) VALUES ( %(title)s, %(synopsis)s, %(rating)s, %(used)s, %(image)s, %(user_id)s , NOW() , NOW() );"
+        query = "INSERT INTO movies (title, synopsis, link, rating, used, image, user_id, created_at, updated_at) VALUES ( %(title)s, %(synopsis)s, %(link)s, %(rating)s, 0, %(image)s, %(user_id)s , NOW() , NOW() );"
         return connectToMySQL(DATABASE).query_db(query, data)
 
     @classmethod
@@ -30,7 +31,7 @@ class Movie:
     @classmethod
     def get_all(cls, data:dict):
         query = "SELECT * FROM movies WHERE user_id = %(user_id)s;"
-        result = connectToMySQL(DATABASE).query_db(query)
+        result = connectToMySQL(DATABASE).query_db(query, data)
         if result:
             return cls(result[0])
         return []
@@ -47,6 +48,8 @@ class Movie:
         query = 'DELETE FROM movies WHERE (id=%(id)s);'
         return connectToMySQL(DATABASE).query_db(query, data)
 
+
+# REPLACE ALL "NOT IN" CHECKS, THEY DO NOTHING
 
     @staticmethod
     def validate(data:dict):
