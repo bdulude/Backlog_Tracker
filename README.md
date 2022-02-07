@@ -1,4 +1,4 @@
-## Backlog_Tracker
+## Backlogged
 
 A web application to keep track of your media backlog!
 
